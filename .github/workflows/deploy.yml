@@ -39,9 +39,9 @@ jobs:
 
     - name: Copiar index.html a la VM
       run: |
-        echo "$SSH_PRIVATE_KEY" > key.pem
+        printf "%s" "$SSH_PRIVATE_KEY" > key.pem
         chmod 600 key.pem
-        scp -o StrictHostKeyChecking=no -i key.pem web/index.html debian@34.28.125.50:/tmp/index.html
-        ssh -o StrictHostKeyChecking=no -i key.pem debian@34.28.125.50 "sudo mv /tmp/index.html /var/www/html/index.html"
+        scp -v -o StrictHostKeyChecking=no -i key.pem web/index.html debian@34.28.125.50:/tmp/index.html
+        ssh -v -o StrictHostKeyChecking=no -i key.pem debian@34.28.125.50 "sudo mv /tmp/index.html /var/www/html/index.html"
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
